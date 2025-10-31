@@ -1,6 +1,10 @@
+import "./storyblok";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { StoryblokProvider } from "../src/components/StoryblokProvider";
+import { Header } from "../src/components/Header";
+import { Footer } from "../src/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,12 +27,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <StoryblokProvider>
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased pt-40 pb-40`}
       >
+                  <Header />
+                  <Footer />
         {children}
       </body>
     </html>
+    </StoryblokProvider>
   );
 }

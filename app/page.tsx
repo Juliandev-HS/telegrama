@@ -1,10 +1,17 @@
-import Image from "next/image";
+import {getStoryblokApi, StoryblokStory} from "@storyblok/react/rsc";
+import { draftMode } from "next/headers";
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-        <main>
-      </main>
-    </div>
-  );
+
+const fetchHomePage = async () => {
+    const { isEnabled }=  await draftMode();
+    const client = getStoryblokApi();
+    const response = await client.getStory(`home`, {
+        version:"draft",
+    });
+    return response.data.story
 }
+const HomePage = async () => {
+  const story = await fetchHomePage();
+  return (<StoryblokStory story={story} />  )
+}
+export default HomePage;
